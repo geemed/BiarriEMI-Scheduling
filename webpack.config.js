@@ -5,8 +5,11 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCSSExtractPlugin = require("mini-css-extract-plugin");
 const EventHooksPlugin = require("event-hooks-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin").CleanWebpackPlugin;
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const appDir = path.resolve(__dirname, "src/app");
+const buildPublicDir = path.resolve(__dirname, "dist/static");
+
 const env = process.env.NODE_ENV === "production" ? "prod" : "dev";
 
 const devConfig = require("./webpack.dev"),
@@ -25,7 +28,7 @@ const config = {
     filename: "js/[name].bundle.js",
   },
   resolve: {
-    modules: ["node_modules", appDir],
+    modules: ["node_modules", appDir, buildPublicDir],
     extensions: [".js", ".jsx", ".css", ".scss", ".json"],
     alias: {
       "app-component": path.resolve(__dirname, path.join(appDir, "components")),
@@ -79,6 +82,15 @@ const config = {
     }),
     new MiniCSSExtractPlugin({
       filename: "css/[name].bundle.css",
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, "files/json"),
+          to: path.join(buildPublicDir, "json"),
+          context: path.resolve(__dirname, "files/json"),
+        },
+      ],
     }),
   ],
 };

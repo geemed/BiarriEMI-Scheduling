@@ -1,3 +1,5 @@
+import { Home, Schedule } from "app-component/reducer";
+
 const createReducer = (reducerFn, reducerName) => {
   return (state, action) => {
     const { name } = action;
@@ -11,6 +13,8 @@ const createReducer = (reducerFn, reducerName) => {
 
 const reducers = {
   /** reducerName: createReducer(ReducerName, "reducerName"), */
+  home: createReducer(Home, "home"),
+  schedule: createReducer(Schedule, "schedule"),
 };
 
 export default reducers;
