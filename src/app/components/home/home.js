@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Navbar, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import moment from "moment-timezone";
 
 import { useDispatch, useSelector } from "app-base/app.context";
 
@@ -17,11 +19,30 @@ const Home = ({ children }) => {
 
   useEffect(() => {
     if (!config) return getConfig();
+
+    if (config.timezone) {
+      moment.tz.setDefault(config.timezone);
+    }
   }, [config]);
 
   return (
     <section>
-      <Container>{!config ? "Loading..." : children}</Container>
+      <Container>
+        <Navbar bg="light" expand="lg">
+          <Navbar.Toggle aria-controls="my-nav" />
+          <Navbar.Collapse id="my-nav">
+            <Nav className="mr-auto">
+              <Link to="/" className="nav-link">
+                Schedule
+              </Link>
+              <Link to="/week" className="nav-link">
+                Week Schedule
+              </Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+        {!config ? "Loading..." : children}
+      </Container>
     </section>
   );
 };

@@ -1,40 +1,36 @@
-import React, { useCallback, useEffect } from "react";
-import _ from "lodash";
-
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "app-base/app.context";
 
+import ScheduleCalendar from "./schedule.calendar";
 import * as actions from "./schedule.action";
 
 const Schedule = () => {
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
+
   const { employees, shifts, roles } = useSelector((state) => state.schedule);
 
   const getEmployees = useCallback(async () => {
     const res = await actions.get();
 
-    dispatch(res);
+    setTimeout(() => {
+      dispatch(res);
+    }, 500);
   });
 
   useEffect(() => {
     if (!employees && !shifts && !roles) return getEmployees();
 
-    const data = actions.getFlatData(employees, shifts, roles);
-
-    debugger;
-    // const res = employees.map((r) => {
-    //   return Object.assign({}, r, {
-    //     shifts: _.filter(shiftRoles, (s) => s.employee_id === r.id),
-    //   });
-    // });
-
-    console.log(data);
-
-    debugger;
+    return setLoading(false);
   }, [employees, shifts, roles]);
 
-  console.log(roles);
+  if (loading) return <h1>Loading...</h1>;
 
-  return <div></div>;
+  return (
+    <div className="schedule">
+      <ScheduleCalendar roles={roles} shifts={shifts} employees={employees} />
+    </div>
+  );
 };
 
 export default Schedule;

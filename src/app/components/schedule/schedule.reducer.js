@@ -4,6 +4,7 @@ const initialState = {
   employees: null,
   shifts: null,
   roles: null,
+  data: null,
   hasError: false,
 };
 
@@ -20,6 +21,7 @@ const reducer = (state = initialState, action) => {
         employees: action.result.employees,
         shifts: action.result.shifts,
         roles: action.result.roles,
+        data: action.result.data
       });
     case types.GET_EMPLOYEES:
       return Object.assign({}, state, {

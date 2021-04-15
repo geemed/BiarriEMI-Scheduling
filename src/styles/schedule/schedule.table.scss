@@ -1,0 +1,29 @@
+.schedule {
+  .s-list {
+    tbody {
+      tr {
+        td {
+          width: 8.33%;
+
+          &:first-child {
+            width: 12%;
+          }
+
+          &.has-progress {
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.s-list-row-tip {
+  text-align: left;
+
+  span {
+    display: block;
+  }
+}

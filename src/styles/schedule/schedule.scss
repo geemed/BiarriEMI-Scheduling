@@ -1,0 +1,68 @@
+.schedule {
+  .btn-group {
+    &.btn-group-np {
+      padding: 5px 0;
+
+      .btn {
+        border-radius: 25px !important;
+        margin: 0 5px;
+      }
+    }
+
+    &.btn-group-view {
+      margin: 5px 0 10px;
+    }
+  }
+
+  .s-heading {
+    margin: 0 !important;
+  }
+
+  .s-detail {
+    display: flex;
+    align-items: center;
+
+    b {
+      margin-right: 10px;
+    }
+  }
+
+  .tui-full-calendar-week-container {
+    .s-detail {
+      display: block;
+    }
+  }
+
+  .s-header {
+    padding: 10px 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .s-date {
+      span {
+        display: block;
+      }
+    }
+  }
+
+  .s-legends {
+    padding: 5px 0 10px;
+    display: flex;
+    align-items: center;
+
+    .s-legends-item {
+      display: flex;
+      align-items: center;
+      width: auto;
+      padding: 0 5px;
+
+      .s-legends-bar {
+        width: 30px;
+        height: 10px;
+        margin-right: 5px;
+        border-radius: 10px;
+      }
+    }
+  }
+}

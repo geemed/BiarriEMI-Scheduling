@@ -16,8 +16,9 @@ export const get = async () => {
       services.getShifts(),
       services.getRoles(),
     ]);
+    const data = getFlatData(employees, shifts, roles);
 
-    return action({ employees, shifts, roles }, types.GET);
+    return action({ employees, shifts, roles, data }, types.GET);
   } catch (e) {
     return action(true, types.HAS_ERROR);
   }
@@ -67,13 +68,19 @@ export const getFlatData = (employees, shifts, roles) => {
 
   return _.map(employees, (item) => {
     return Object.assign({}, item, {
-      shifts: _.map(newShifts, (item) => {
-        return _.map(item, (i) => {
-          return Object.assign({}, i, {
-            role: _.find(roles, (r) => r.id === i.role_id),
+      shifts: _.chain(newShifts)
+        .filter((shifts, key) => {
+          return parseInt(key) === item.id;
+        })
+        .map((item) => {
+          return _.map(item, (i) => {
+            return Object.assign({}, i, {
+              role: _.find(roles, (r) => r.id === i.role_id),
+            });
           });
-        });
-      }),
+        })
+        .flatten()
+        .value(),
     });
   });
 };

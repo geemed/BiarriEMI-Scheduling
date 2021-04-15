@@ -2,7 +2,7 @@ import React from "react";
 import { Router, Route } from "react-router-dom";
 
 import History from "./app.history";
-import { Home, Schedule } from "app-component";
+import { Home, Schedule, ScheduleWeek } from "app-component";
 
 const Routes = () => {
   return (
@@ -10,6 +10,9 @@ const Routes = () => {
       <Home>
         <Route path="/" exact>
           <Schedule />
+        </Route>
+        <Route path="/week" exact>
+          <ScheduleWeek />
         </Route>
       </Home>
     </Router>

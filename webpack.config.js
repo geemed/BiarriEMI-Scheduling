@@ -1,3 +1,4 @@
+const webpack = require("webpack");
 const { merge } = require("webpack-merge");
 const path = require("path");
 const fs = require("fs-extra");
@@ -92,6 +93,7 @@ const config = {
         },
       ],
     }),
+    new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/),
   ],
 };
 
